@@ -2,7 +2,7 @@
 
 App de consola en Python + MySQL: **Inventario ligero para Pymes**. Proyecto Scrum del ramo Metodología de Desarrollo Ágil (INACAP 2026-P). Felipe Melo es el **programador en jefe**. Repo privado: https://github.com/felipemelo720/inventario-pymes (sin protección de `main`: requiere GitHub Pro). El equipo también comparte el código por Google Drive.
 
-Contexto completo del ramo (teoría, requisitos de evaluación, estado de evidencias): `docs/contexto-ramo.md`. Leerlo solo si la tarea lo necesita. Documentos originales en `~/metodologia-agil/`.
+Contexto completo del ramo (teoría, requisitos de evaluación, estado de evidencias): `docs/contexto-ramo.md`. Leerlo solo si la tarea lo necesita. Documentos originales en `~/inacap/metodologia-agil/`.
 
 ## Equipo y asignación
 
@@ -48,7 +48,7 @@ app/tests/   pruebas pytest (fixture en app/conftest.py)
 db/          inventario_pymes.sql
 docs/        contexto-ramo.md
 ```
-Material descartado (`pyme.py`, `Avance_inventario/`) borrado el 17-10-2026: el original de `Avance_inventario/` sigue en `~/metodologia-agil/Sprint 1/Codigo/Avance_inventario/` y `pyme.py` se recupera con `git show eda602f:_archivo/pyme.py`.
+Material descartado (`pyme.py`, `Avance_inventario/`) borrado el 17-10-2026: el original de `Avance_inventario/` sigue en `~/inacap/metodologia-agil/Sprint 1/Codigo/Avance_inventario/` y `pyme.py` se recupera con `git show eda602f:_archivo/pyme.py`.
 
 ### `app/`
 - `conexion.py`: `obtener_conexion()` con el dict `CONFIG` (localhost, root, clave vacía).
@@ -57,7 +57,7 @@ Material descartado (`pyme.py`, `Avance_inventario/`) borrado el 17-10-2026: el 
 - `main.py`: menú principal (antes `inventario para pyme.py`); captura las excepciones de BD.
 
 ### `db/inventario_pymes.sql`
-Esquema oficial, corregido el 16-10-2026 (el dump original sigue intacto en `~/metodologia-agil/Sprint 1/Codigo/Avance_inventario/`, que es evidencia y no se edita). Crea la BD (`CREATE DATABASE IF NOT EXISTS` + `USE`) y **hace `DROP TABLE`: reimportar borra los datos**. Trae 4 productos de prueba (`SKU-001` a `SKU-004`). Probado en MariaDB 11.8.
+Esquema oficial, corregido el 16-10-2026 (el dump original sigue intacto en `~/inacap/metodologia-agil/Sprint 1/Codigo/Avance_inventario/`, que es evidencia y no se edita). Crea la BD (`CREATE DATABASE IF NOT EXISTS` + `USE`) y **hace `DROP TABLE`: reimportar borra los datos**. Trae 4 productos de prueba (`SKU-001` a `SKU-004`). Probado en MariaDB 11.8.
 
 ### Esquema
 ```sql
@@ -103,7 +103,7 @@ Los imports son por nombre de módulo (`from conexion import ...`), así que hay
 /increment  ZIP o link al repo + video demo de 3-5 min
 README.md   instrucciones de ejecución
 ```
-Más Release Notes. El tablero y el burndown los lleva el SM, pero las tarjetas se mueven en `~/metodologia-agil/Sprint 1/Tablero/Tablero_InventarioPymes.xlsx` (registrar cada cambio de estado en la hoja "Registro de movimientos").
+Más Release Notes. El tablero y el burndown los lleva el SM, pero las tarjetas se mueven en `~/inacap/metodologia-agil/Sprint 1/Tablero/Tablero_InventarioPymes.xlsx` (registrar cada cambio de estado en la hoja "Registro de movimientos").
 
 ## Deuda técnica / próximos pasos
 
@@ -113,4 +113,4 @@ Más Release Notes. El tablero y el burndown los lleva el SM, pero las tarjetas 
 4. HU-10: escribir el CSV con `encoding="utf-8-sig"` y `delimiter=";"` para Excel en español.
 5. HU-03: la columna `activo` ya existe en la BD. Falta el código: la baja hace `UPDATE ... SET activo = 0`, y el listado, la búsqueda, el CSV y las alertas filtran `activo = 1`. `existe_sku` debe seguir mirando todos los productos, porque el `UNIQUE` incluye a los dados de baja.
 6. ~~Tests con pytest de S1 + CI~~ (hecho el 17-10-2026). CI: `.github/workflows/ci.yml` (GitHub Actions, MySQL 8, corre `pytest` en cada push a `main` y en cada PR). Tests + CI dan **+5 de bonus**. Agregar tests de cada HU de S2.
-7. Crear `README.md` (lo exige la entrega), `requirements.txt` y un repo git o ZIP para `/increment`.
+7. Crear `README.md` (lo exige la entrega). `app/requirements.txt` y el repo git ya existen.

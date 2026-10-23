@@ -2,7 +2,7 @@
 
 Ramo INACAP (sede Valdivia), docente **Omar Ignacio Cabrera Quiroga**. Referencia completa de teoría, requisitos y evidencias. Lo esencial para programar está en `../CLAUDE.md`.
 
-Rutas relativas de este archivo (`Documentos INACAP/`, `Primera entrega/`, `Sprint 1/`) están bajo `~/metodologia-agil/`.
+Rutas relativas de este archivo (`Documentos INACAP/`, `Primera entrega/`, `Sprint 1/`) están bajo `~/inacap/metodologia-agil/`.
 
 ---
 
@@ -13,18 +13,18 @@ Rutas relativas de este archivo (`Documentos INACAP/`, `Primera entrega/`, `Spri
 | `Documentos INACAP/` | PDFs del docente (vienen del zip de OneDrive del equipo) |
 | `Primera entrega/` | Planillas de la primera entrega (backlog, sprint planning) |
 | `Sprint 1/` | Plan, código, minutas, tablero, burndown del Sprint 1 |
-| `~/api-inacap/descargas/Metodología de Desarrollo Ágil 2026_P/` | Todo lo bajado de la plataforma por el scraper (incluye material que no está aquí) |
-| `~/api-inacap/resumen_ramos/metodología_de_desarrollo_ágil_2026_p.md` | Resumen autogenerado; de baja calidad (texto sin espacios). Este archivo lo reemplaza |
+| `~/inacap/api-inacap/descargas/Metodología de Desarrollo Ágil 2026_P/` | Todo lo bajado de la plataforma por el scraper (incluye material que no está aquí) |
+| `~/inacap/api-inacap/resumen_ramos/metodología_de_desarrollo_ágil_2026_p.md` | Resumen autogenerado; de baja calidad (texto sin espacios). Este archivo lo reemplaza |
 
 Origen: `C:\Users\fmelo\Downloads\OneDrive_1_16-10-2026.zip` (16-10-2026). El zip trae `Sprint 1/` duplicado en la raíz, idéntico byte a byte a `Metodología Ágil/Sprint 1/`; solo se copió una vez.
 
-Material que solo está en `~/api-inacap/descargas/...`: `2.-Criterios de Aceptacion.pdf`, `3.-Mazo_Scrum_Poker.pdf`, `4.-Guía de Uso - Planning Poker en Scrum.pdf`, `Ejercicio.pdf`, `IntroducciondesaroolloAgil.pdf` (17 láminas escaneadas, sin capa de texto: hay que renderizarlas para leerlas), `Metodologia_Agil_Epicas_Historias_Requerimientos.pdf`, `Infografia.png`, `TablaAprobacion.jpeg`, `enlaces.md` (Scrum Poker online: https://www.scrumpoker-online.org/es/).
+Material que solo está en `~/inacap/api-inacap/descargas/...`: `2.-Criterios de Aceptacion.pdf`, `3.-Mazo_Scrum_Poker.pdf`, `4.-Guía de Uso - Planning Poker en Scrum.pdf`, `Ejercicio.pdf`, `IntroducciondesaroolloAgil.pdf` (17 láminas escaneadas, sin capa de texto: hay que renderizarlas para leerlas), `Metodologia_Agil_Epicas_Historias_Requerimientos.pdf`, `Infografia.png`, `TablaAprobacion.jpeg`, `enlaces.md` (Scrum Poker online: https://www.scrumpoker-online.org/es/).
 
 Material que solo está aquí: `4.-Metodo_MoSCoW.pdf`, `Esquema_Proyecto_Agil_Ejemplos.pdf`.
 
 `2.-` y `5.-PresentaciónScrumSprintPlanning.pdf` son la misma presentación (solo cambian espacios).
 
-Para extraer texto: `pdf-parse`, `mammoth` y `xlsx` están en `~/api-inacap/node_modules`. Varios PDFs salen con las palabras pegadas (sin espacios); leer con cuidado.
+Para extraer texto: `pdf-parse`, `mammoth` y `xlsx` están en `~/inacap/api-inacap/node_modules`. Varios PDFs salen con las palabras pegadas (sin espacios); leer con cuidado.
 
 ---
 
@@ -169,9 +169,9 @@ Kick-off (visión, Product Vision Statement), levantamiento (HU + backlog), Spri
 | Scrum Master | José Oporto (no programa; tablero, dailies, burndown, minutas, velocidad) |
 | Dev | Antonella Pezzopane (HU-01, HU-05; S2: HU-02, HU-03) |
 | Dev | Benjamín Ceballos (T-01 BD + conexión, HU-04; S2: HU-08, HU-10) |
-| Dev | **Felipe Melo** "(por verificar)" (HU-06; S2: T-02 pruebas) |
+| Dev | **Felipe Melo**, programador en jefe (HU-06; S2: T-02 pruebas) |
 
-Stack acordado: **Python + MySQL, menú por terminal**. El código se comparte en una carpeta de Google Drive (no hay git).
+Stack acordado: **Python + MySQL, menú por terminal**. El código está en el repo privado https://github.com/felipemelo720/inventario-pymes y también se comparte por Google Drive.
 
 ### Calendario
 - Sprints de **1 semana**: S1 desde 15-10-2026, S2 la semana siguiente, semana 3 de cierre (video, informe, README, Release Notes).
@@ -208,20 +208,21 @@ Los CA de S1 están acordados; el resto es propuesta. Mapeo MoSCoW natural: Must
 Estados: Por hacer, En progreso, En revisión, Terminado. **Solo la PO pasa a Terminado.** Cada cambio de estado se anota en la hoja "Registro de movimientos". Estado al 15-10-2026: T-01, HU-01 y HU-05 en progreso; HU-04 y HU-06 por hacer.
 
 ### Riesgos registrados
-Felipe no confirmado como Dev 3; sprints de 1 semana; pruebas de otros ramos; integración del código; tecnología no definida (ya resuelto: Python + MySQL).
+~~Felipe no confirmado como Dev 3~~ (resuelto: programador en jefe); sprints de 1 semana; pruebas de otros ramos; integración del código; tecnología no definida (ya resuelto: Python + MySQL).
 
 ---
 
 ## Código (`Sprint 1/Codigo/`)
 
-`Sprint 1/Codigo/` es la copia original tal como llegó del Drive (evidencia; no editar). La copia de trabajo es `~/Codigo/`, reorganizada el 17-10-2026 en una sola app:
+`Sprint 1/Codigo/` es la copia original tal como llegó del Drive (evidencia; no editar). La copia de trabajo es el repo `~/inacap/inventario-pymes/` (GitHub), reorganizada el 17-10-2026 en una sola app:
 
 ```
 app/         main.py, conexion.py, productos.py, stock.py, requirements.txt
+app/tests/   pruebas pytest (fixture en app/conftest.py)
 db/          inventario_pymes.sql
 docs/        contexto-ramo.md
 ```
-Material descartado (`pyme.py`, `Avance_inventario/`) borrado el 17-10-2026: el original de `Avance_inventario/` sigue en `~/metodologia-agil/Sprint 1/Codigo/Avance_inventario/` y `pyme.py` se recupera con `git show eda602f:_archivo/pyme.py`.
+Material descartado (`pyme.py`, `Avance_inventario/`) borrado el 17-10-2026: el original de `Avance_inventario/` sigue en `~/inacap/metodologia-agil/Sprint 1/Codigo/Avance_inventario/` y `pyme.py` se recupera con `git show eda602f:_archivo/pyme.py`.
 
 ### `app/` (versión modular, la base)
 | Archivo | Contenido |
@@ -238,10 +239,10 @@ El original es un dump de MySQL 8.0 sin `CREATE DATABASE`, con la collation `utf
 - Crea la BD y usa la collation `utf8mb4_unicode_ci`.
 - Agrega la columna `activo` y los CHECK; `fecha` pasa a `NOT NULL` y se agrega el índice `(producto_id, fecha)`.
 - Trae 4 productos de prueba (`SKU-002` con stock 5 para HU-06; `SKU-003` y `SKU-004` para el `<=` de HU-08).
-- Probado en MariaDB 11.8: 24 pruebas de esquema y 9 de la lógica de `app/` pasan.
+- Probado en MariaDB 11.8 (16-10-2026): 24 pruebas de esquema y 9 de la lógica de `app/` pasan. Hoy lo cubren los 27 tests pytest de `app/tests/`.
 - **Hace `DROP TABLE`: reimportarlo borra los datos.**
 
-### Esquema (versión corregida de `~/Codigo/`)
+### Esquema (`db/inventario_pymes.sql`)
 ```sql
 productos(id PK AI, sku VARCHAR(50) UNIQUE NOT NULL, nombre VARCHAR(100) NOT NULL,
           categoria VARCHAR(100) NULL, stock_actual INT NOT NULL DEFAULT 0,
@@ -257,8 +258,8 @@ La collation `unicode_ci` no distingue mayúsculas ni tildes: `SKU-001` y `sku-0
 ### Ejecutar
 ```bash
 pip install mysql-connector-python
-mysql -u root -p < ~/Codigo/db/inventario_pymes.sql   # crea la BD; borra datos si ya existe
-cd ~/Codigo/app && python main.py
+mysql -u root -p < db/inventario_pymes.sql   # desde la raíz del repo; crea la BD; borra datos si ya existe
+cd app && python main.py
 ```
 
 ### Pendientes técnicos detectados
@@ -267,13 +268,13 @@ cd ~/Codigo/app && python main.py
 - HU-04: la historia menciona "filtro por categoría"; el CA solo pide nombre o código. Aclarar con la PO.
 - HU-10: escribir el CSV con `encoding="utf-8-sig"` y `;` como separador para que Excel en español lea bien tildes y columnas.
 - HU-03 (baja): la columna `activo` ya existe en la BD corregida, pero falta el código: la baja hace `UPDATE ... SET activo = 0`, y el listado, la búsqueda, el CSV y las alertas filtran `activo = 1`. Un `DELETE` falla porque `movimientos` tiene FK hacia `productos`.
-- El `.sql` corregido existe solo en `~/Codigo/`: compartirlo con el equipo por Drive y avisar que reimportarlo borra los datos.
-- Sin tests. Bonus +5 si hay pruebas automatizadas (pytest sobre `registrar_producto`, `entrada_stock`, `salida_stock` con una BD de prueba) o CI.
-- Sin repositorio git. La guía pide repo o ZIP + README.md.
+- El `.sql` corregido está en el repo (`db/`): compartirlo con el equipo por Drive y avisar que reimportarlo borra los datos.
+- ~~Tests + CI~~: hecho el 17-10-2026 (27 tests pytest de S1 en `app/tests/`, CI en `.github/workflows/ci.yml`; bonus +5). Falta agregar tests de cada HU de S2.
+- ~~Repositorio git~~: hecho (https://github.com/felipemelo720/inventario-pymes). Falta `README.md`, que la guía exige.
 
 ---
 
-## Estado de evidencias Sprint 1 (al 16-10-2026)
+## Estado de evidencias Sprint 1 (al 16-10-2026; sin revisar desde entonces)
 
 | Evidencia | Archivo | Estado |
 |---|---|---|
