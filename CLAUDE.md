@@ -10,9 +10,11 @@ Contexto completo del ramo (teoría, requisitos de evaluación, estado de eviden
 |---|---|---|---|
 | Anastasia Fuentes | PO: acepta o rechaza según los CA; solo ella pasa tareas a "Terminado" | | |
 | José Oporto | Scrum Master (no programa) | | |
-| Benjamín Ceballos | Dev | T-01 BD + conexión, HU-04 | HU-08, HU-10 |
-| Antonella Pezzopane | Dev | HU-01, HU-05 | HU-02, HU-03 |
-| Felipe Melo | Dev / jefe técnico | HU-06 | T-02 pruebas |
+| Benjamín Ceballos | Dev | T-01 BD + conexión, HU-04 | T-03, HU-08, HU-10 |
+| Antonella Pezzopane | Dev | HU-01, HU-05 | T-03, HU-02, HU-03 |
+| Felipe Melo | Dev / jefe técnico | HU-06 | HU-04, HU-06, T-02 pruebas |
+
+T-03 = juntar el código (terminado). Tablero del Sprint 2, con estados y puntos: `docs/contexto-ramo.md`, sección Tablero. Velocidad S1 = 11 pts. El plan de la PO asigna HU-04 a Benjamín; el tablero, a Felipe.
 
 Sprints de 1 semana: S1 desde 15-10-2026, después S2, y una semana 3 de cierre (video demo de 3-5 min, README, Release Notes).
 
@@ -87,6 +89,7 @@ cd app && python main.py
 pip install -r app/requirements.txt
 cd app && pytest
 ```
+En este PC, root de MariaDB solo entra por socket: correr con `DB_USER=inventario DB_PASSWORD=inventario` (usuario creado el 23-10-2026, permisos solo en `inventario_pymes%`). Si MariaDB no arranca tras reiniciar (`/run/mysqld` no existe): `sudo install -d -o mysql -g mysql /run/mysqld && sudo systemctl start mariadb`.
 Los imports son por nombre de módulo (`from conexion import ...`), así que hay que ejecutar desde dentro de `app/`.
 
 ## Convenciones
@@ -103,7 +106,7 @@ Los imports son por nombre de módulo (`from conexion import ...`), así que hay
 /increment  ZIP o link al repo + video demo de 3-5 min
 README.md   instrucciones de ejecución
 ```
-Más Release Notes. El tablero y el burndown los lleva el SM, pero las tarjetas se mueven en `~/inacap/metodologia-agil/Sprint 1/Tablero/Tablero_InventarioPymes.xlsx` (registrar cada cambio de estado en la hoja "Registro de movimientos").
+Más Release Notes. El tablero y el burndown los lleva el SM, pero las tarjetas se mueven en el OneDrive de la PO: `Sprint 2/Tablero/Tablero_Sprint2_InventarioPymes.xlsx` (registrar cada cambio de estado en la hoja "Registro de movimientos"). Copia local: bajar el zip (último: `C:\Users\fmelo\Downloads\OneDrive_2026-10-23.zip`); estado de cada evidencia en `docs/contexto-ramo.md`.
 
 ## Deuda técnica / próximos pasos
 
@@ -114,4 +117,5 @@ Más Release Notes. El tablero y el burndown los lleva el SM, pero las tarjetas 
 5. HU-03: la columna `activo` ya existe en la BD. Falta el código: la baja hace `UPDATE ... SET activo = 0`, y el listado, la búsqueda, el CSV y las alertas filtran `activo = 1`. `existe_sku` debe seguir mirando todos los productos, porque el `UNIQUE` incluye a los dados de baja.
 6. ~~Tests con pytest de S1 + CI~~ (hecho el 17-10-2026). CI: `.github/workflows/ci.yml` (GitHub Actions, MySQL 8, corre `pytest` en cada push a `main` y en cada PR). Tests + CI dan **+5 de bonus**. Agregar tests de cada HU de S2.
 7. Crear `README.md` (lo exige la entrega). `app/requirements.txt` y el repo git ya existen.
-8. **PRs #1-#3 de Antonella (HU-02, HU-03), integrados en la rama `test-pr` el 23-10-2026, sin mergear a `main`.** Resultado: 39 tests pasan y 2 fallan. `listar_productos` no filtra `activo = 1`, así que los productos dados de baja siguen apareciendo en el listado y en la búsqueda (el error está comentado en `app/productos.py`). Fallan `test_baja_confirmada_deja_de_aparecer_en_el_listado` y `test_producto_dado_de_baja_no_aparece_en_la_busqueda`. Otros pendientes: las líneas del PR #1 vienen con CRLF; el CI de los PR (que vienen de un fork) quedó en `action_required` y hay que aprobarlo en GitHub; las entradas y salidas de stock aceptan productos dados de baja.
+8. **PRs #1-#3 de Antonella (HU-02, HU-03), integrados en `main` local el 23-10-2026, sin push.** Corregido después: `listar_productos` y `buscar_por_sku` (stock) filtran `activo = 1`, CRLF pasado a LF, nuevo test de movimientos sobre producto dado de baja. `pytest`: 42 pasan (23-10-2026). Falta aprobar en GitHub el CI de los PR (fork, `action_required`).
+9. **T-02 (Felipe)**: tabla de casos de prueba por historia (qué se probó, qué debía pasar, qué pasó), evidencia para el informe.

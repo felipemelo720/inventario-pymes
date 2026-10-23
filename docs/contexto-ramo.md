@@ -13,10 +13,13 @@ Rutas relativas de este archivo (`Documentos INACAP/`, `Primera entrega/`, `Spri
 | `Documentos INACAP/` | PDFs del docente (vienen del zip de OneDrive del equipo) |
 | `Primera entrega/` | Planillas de la primera entrega (backlog, sprint planning) |
 | `Sprint 1/` | Plan, código, minutas, tablero, burndown del Sprint 1 |
+| `Sprint 2/` (solo en el zip del 23-10, no copiado) | Plan "Que debe hacer cada uno", tablero, Sprint Planning, dailies, minutas, burndown del Sprint 2 |
 | `~/inacap/api-inacap/descargas/Metodología de Desarrollo Ágil 2026_P/` | Todo lo bajado de la plataforma por el scraper (incluye material que no está aquí) |
 | `~/inacap/api-inacap/resumen_ramos/metodología_de_desarrollo_ágil_2026_p.md` | Resumen autogenerado; de baja calidad (texto sin espacios). Este archivo lo reemplaza |
 
 Origen: `C:\Users\fmelo\Downloads\OneDrive_1_16-10-2026.zip` (16-10-2026). El zip trae `Sprint 1/` duplicado en la raíz, idéntico byte a byte a `Metodología Ágil/Sprint 1/`; solo se copió una vez.
+
+Zip más reciente: `C:\Users\fmelo\Downloads\OneDrive_2026-10-23.zip` (23-10-2026, carpeta compartida de la PO). Trae `Sprint 2/` y cambios en `Sprint 1/` que la copia local no tiene: Scrum Board movido a `Sprint 1/Documentos/Scrum Board/ScrumBoard_InventarioPymes.xlsx` (ya no existe `Sprint 1/Tablero/Tablero_InventarioPymes.xlsx`), Daily 1 llenada, `Codigo/ejemplo base datos/inventario_pymes.sql` y `Notas clase.txt` con contenido. `Sprint 2/Codigo/` es idéntico a `Sprint 1/Codigo/`: el código de verdad está en el repo. OneDrive es la fuente; para actualizar, bajar el zip de nuevo.
 
 Material que solo está en `~/inacap/api-inacap/descargas/...`: `2.-Criterios de Aceptacion.pdf`, `3.-Mazo_Scrum_Poker.pdf`, `4.-Guía de Uso - Planning Poker en Scrum.pdf`, `Ejercicio.pdf`, `IntroducciondesaroolloAgil.pdf` (17 láminas escaneadas, sin capa de texto: hay que renderizarlas para leerlas), `Metodologia_Agil_Epicas_Historias_Requerimientos.pdf`, `Infografia.png`, `TablaAprobacion.jpeg`, `enlaces.md` (Scrum Poker online: https://www.scrumpoker-online.org/es/).
 
@@ -167,9 +170,9 @@ Kick-off (visión, Product Vision Statement), levantamiento (HU + backlog), Spri
 |---|---|
 | Product Owner | Anastasia Fuentes |
 | Scrum Master | José Oporto (no programa; tablero, dailies, burndown, minutas, velocidad) |
-| Dev | Antonella Pezzopane (HU-01, HU-05; S2: HU-02, HU-03) |
-| Dev | Benjamín Ceballos (T-01 BD + conexión, HU-04; S2: HU-08, HU-10) |
-| Dev | **Felipe Melo**, programador en jefe (HU-06; S2: T-02 pruebas) |
+| Dev | Antonella Pezzopane (HU-01, HU-05; S2: T-03, HU-02, HU-03) |
+| Dev | Benjamín Ceballos (T-01 BD + conexión, HU-04; S2: T-03, HU-08, HU-10) |
+| Dev | **Felipe Melo**, programador en jefe (HU-06; S2: HU-04, HU-06, T-02 pruebas) |
 
 Stack acordado: **Python + MySQL, menú por terminal**. El código está en el repo privado https://github.com/felipemelo720/inventario-pymes y también se comparte por Google Drive.
 
@@ -200,12 +203,41 @@ Los CA de S1 están acordados; el resto es propuesta. Mapeo MoSCoW natural: Must
 ### Capacidad declarada (hoja "Cálculo de Capacidad")
 5 miembros × 2 h/día × 5 días = 50 h, menos 15 de reuniones y 5 de ausencias = **30 h**. Velocidad histórica 0 (primer sprint), rango "0 - 0".
 
+Sprint 2 (`Sprint_Planning_Inventario_PymesSprint2.xlsx`): misma capacidad (30 h), **velocidad del Sprint 1 = 11 pts** (T-01 3 + HU-01 3 + HU-05 5), buffer 10 %, rango **9,9 - 12,1 pts**. El tablero del Sprint 2 suma 28 pts: muy por encima del rango.
+
 ### DoR / DoD del equipo
 - DoR: formato Como/quiero/para, CA claros, el equipo la entiende, estimada y priorizada, sin impedimentos.
 - DoD: cumple CA, código hecho y probado, integrado al proyecto, documentación breve, aprobada por la PO.
 
-### Tablero (`Sprint 1/Tablero/Tablero_InventarioPymes.xlsx`)
-Estados: Por hacer, En progreso, En revisión, Terminado. **Solo la PO pasa a Terminado.** Cada cambio de estado se anota en la hoja "Registro de movimientos". Estado al 15-10-2026: T-01, HU-01 y HU-05 en progreso; HU-04 y HU-06 por hacer.
+### Tablero
+Estados: Por hacer, En progreso, En revisión, Terminado. **Solo la PO pasa a Terminado.** Cada cambio de estado se anota en la hoja "Registro de movimientos" (vacía al 23-10).
+
+Sprint 1, cierre (`Sprint 1/Documentos/Scrum Board/ScrumBoard_InventarioPymes.xlsx`, hoja "Sprint 1"): terminados T-01 (3 pts), HU-01 (3) y HU-05 (5), del 15 al 16-10. HU-04 (5) y HU-06 (2) quedan en progreso y pasan completas al Sprint 2; sus puntos no cuentan en la velocidad.
+
+Sprint 2, estado al 23-10-2026 (`Sprint 2/Tablero/Tablero_Sprint2_InventarioPymes.xlsx` + 2 capturas):
+
+| ID | Tarea | Responsable | Estado | Pts |
+|---|---|---|---|---|
+| T-03 | Juntar el código: una sola versión con el código de Antonella y la BD de Benjamín | Antonella, Benjamín | Terminado | 2 |
+| HU-04 | Ver y buscar productos (viene del S1) | Felipe | En progreso | 3 |
+| HU-06 | Salidas de stock sin quedar en negativo (viene del S1; revisar la versión de Antonella) | Felipe | En progreso | 2 |
+| HU-08 | Alerta de stock bajo | Benjamín | Por hacer | 3 |
+| HU-10 | Exportar a CSV | Benjamín | Por hacer | 5 |
+| HU-02 | Editar productos | Antonella | En progreso | 3 |
+| HU-03 | Dar de baja productos, con confirmación | Antonella | Por hacer | 5 |
+| T-02 | Pruebas según los CA; anotar errores | Felipe | En progreso | 5 |
+
+Total 28 pts, 26 pendientes. El tablero va atrasado respecto del código: HU-04 y HU-06 ya están hechas y probadas, y HU-02 y HU-03 están integradas en `main` local (PRs #1-#3).
+
+### Plan del Sprint 2 (`Sprint 2/Que debe hacer cada uno.docx`)
+- Orden: Planning (velocidad S1 + Planning Poker) → T-03 primero → HU-04 y HU-06 → HU-08, HU-10, HU-02, HU-03 → T-02 pruebas → Review → Retro.
+- Si sobra tiempo (decide la PO): HU-09 y HU-07.
+- Pendientes del S1: juntar el código (T-03), `CREATE DATABASE` + productos de prueba en el `.sql`, borrar `pyme.py`. Todo hecho en el repo.
+- HU-03: baja lógica con columna `activo`, el listado muestra solo los activos. HU-08: aviso al abrir el menú o después de una salida. HU-10: `utf-8-sig` y `;`.
+- **Felipe**: HU-06 (revisar la versión de Antonella y asegurar los CA) y T-02: probar todas las historias de S1 y S2 según los CA, avisar los errores al responsable, y una **tabla de casos de prueba** (por historia: qué se probó, qué debía pasar, qué pasó) como evidencia para el informe. Bonus +5 por pruebas automatizadas (ya hechas).
+- Checklist de cierre del S2: código en una sola versión; HU-04, 06, 08, 10, 02 y 03 funcionando; tabla de casos de prueba; puntos y velocidad del S1 en el Excel; tablero con capturas; dailies; burndown; minutas de Review y Retro; resumen de velocidad S1 vs S2 (carpeta Métricas).
+- Semana de cierre: video demo de 3-5 min, README, Release Notes, informe final de 12-15 páginas.
+- Riesgos del S2: Felipe se integra recién; sprints de 1 semana; otros ramos; juntar el código; HU-04 y HU-06 atrasadas.
 
 ### Riesgos registrados
 ~~Felipe no confirmado como Dev 3~~ (resuelto: programador en jefe); sprints de 1 semana; pruebas de otros ramos; integración del código; tecnología no definida (ya resuelto: Python + MySQL).
@@ -274,18 +306,34 @@ cd app && python main.py
 
 ---
 
-## Estado de evidencias Sprint 1 (al 16-10-2026; sin revisar desde entonces)
+## Estado de evidencias Sprint 2 (zip del 23-10-2026)
+
+Entrega del 23-10 (según `Sprint 2/Entrega hoy, 23-10-2026.txt`): **Daily, Scrum Board y tablero activo**.
+
+| Evidencia | Archivo (`Sprint 2/`) | Estado |
+|---|---|---|
+| Tablero + capturas | `Tablero/Tablero_Sprint2_InventarioPymes.xlsx`, 2 capturas | Al día (tabla de arriba) |
+| Scrum Board | `Documentos/Scrum Board/ScrumBoard_InventarioPymes.xlsx` | Hoja "Sprint 1" al día; hoja "Sprint 2" todo en "Por hacer" y sin puntos (no cuadra con el tablero) |
+| Sprint Planning | `Documentos/Sprint planning/Sprint_Planning_Inventario_PymesSprint2.xlsx` | Backlog con CA de S2; estimaciones solo en HU-01, 04, 05, 06; Sprint Backlog S2 suma 7 pts; Dev3 aún dice "Felipe Melo (por verificar)" |
+| Dailies | `Documentos/Registro dailies/RegistroDailies_Sprint2.docx` | Copia del S1: dice "Sprint 1" y solo trae la Daily 1 del 16-10 |
+| Review | `Documentos/Minuta Sprint Review/MinutaReview_Sprint2.docx` | Plantilla vacía; el título dice "Sprint 1" y la tabla lista las HU del S1 |
+| Retro | `Documentos/Minuta Retrospectiva/MinutaRetrospectiva_Sprint2.docx` | Plantilla vacía |
+| Burndown | `Metricas/Gráfico burndown/Burndown_Sprint1.xlsx` | Copia vacía del S1 (nombre y fechas del S1) |
+
+Inconsistencias: HU-04 es de Benjamín en el plan y en el Sprint Backlog, pero de Felipe en el tablero. HU-04 vale 5 pts en el backlog y el Scrum Board, 3 en el tablero. En el Scrum Board del S1, HU-06 figura a nombre de Benjamín. Las minutas de Review y Retro del S2 siguen sin **Felipe Melo** entre los asistentes.
+
+## Estado de evidencias Sprint 1 (al 16-10-2026; actualizado el 23-10 en lo que cambió)
 
 | Evidencia | Archivo | Estado |
 |---|---|---|
 | Estimaciones (pts) | planilla Sprint Planning, columna "Estimación (pts)" | **Vacía**. Falta el Planning Poker (el plan propone 1, 2, 3, 5, 8) |
-| Velocidad | hoja Capacidad / minuta Review | 0, se calcula al cierre |
+| Velocidad | hoja Capacidad del Sprint Planning S2 | 11 pts |
 | Burndown | `Metricas/Gráfico burndown/Burndown_Sprint1.xlsx` | Sin puntos. Dice "Días del Sprint: 1" (15 al 16-10), pero el plan dice 1 semana: corregir |
-| Dailies | `Documentos/Registro dailies/RegistroDailies_Sprint1.docx` | Plantilla vacía (2 dailies) |
+| Dailies | `Documentos/Registro dailies/RegistroDailies_Sprint1.docx` | Daily 1 (16-10) llenada + tabla de complicaciones del S1; Daily 2 vacía |
 | Review | `Documentos/Minuta Sprint Review/MinutaReview_Sprint1.docx` | Plantilla vacía |
 | Retro | `Documentos/Minuta Retrospectiva/MinutaRetrospectiva_Sprint1.docx` | Plantilla vacía |
-| Tablero + capturas | `Tablero/` | 2 capturas del 15-10 |
-| Notas de clase | `Sprint 1/Notas clase.txt` | Vacío |
+| Tablero + capturas | `Tablero/` (capturas) + `Documentos/Scrum Board/` | 2 capturas del 15-10; Scrum Board con el cierre del S1 |
+| Notas de clase | `Sprint 1/Notas clase.txt` | Notas de Planning, Daily, Scrum Board y tablero activo |
 
 Inconsistencias en las plantillas: las minutas de Review y Retro listan como asistentes solo a Antonella y Benjamín; falta **Felipe Melo**, que aparece como responsable de HU-06 en la misma minuta. En `Primera entrega/` la planilla de Sprint Planning no tiene la columna de CA (la versión de `Sprint 1/` sí), y `Product Backlog.xlsx` es una plantilla vacía (HU-INV-001 a 012).
 
