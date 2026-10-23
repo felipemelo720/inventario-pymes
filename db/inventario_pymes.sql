@@ -7,9 +7,10 @@
 -- OJO: este script BORRA las tablas y sus datos si ya existen (DROP TABLE).
 -- No reimportar sobre una BD con datos que se quieran conservar.
 
+-- create data base es el comadno que crea la db si es que no existe, si ya existe no hace nada. esto cn (if not exists y si no existe la crea con el nombre de la base de datos, si ya existe no hace nada.)
 CREATE DATABASE IF NOT EXISTS `inventario_pymes`
-  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `inventario_pymes`;
+  DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci; -- Guarda el texto usando UTF-8 completo (hasta 4 bytes), para que pueda almacenar letras especiales, idiomas y emojis sin errores.
+USE `inventario_pymes`; -- cmo la db esta en cada equipo "use" hace que se seleccione esta db para que los siguientes comandos se ejecuten en esta.
 
 SET NAMES utf8mb4;
 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0;
