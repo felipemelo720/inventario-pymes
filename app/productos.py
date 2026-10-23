@@ -6,6 +6,8 @@ HU-04: Ver el listado de productos y buscar uno.
 """
 # Trae la función obtener_conexion desde el archivo conexion.py.
 from conexion import obtener_conexion
+# Trae "csv" (librería estándar) para armar el archivo de HU-10.
+import csv
 
 
 
@@ -200,6 +202,69 @@ def dar_de_baja_producto(conexion, sku, confirmado):
     return True, f"Producto '{nombre}' dado de baja. Ya no aparecerá en el listado."
 
 
+# ---------------------------------------------------------------
+# HU-08: Alerta de stock mínimo
+# CA: si stock_actual <= stock_minimo, aviso con el nombre del producto.
+# ---------------------------------------------------------------
+
+def productos_bajo_stock(conexion):
+    """
+    Devuelve los productos activos cuyo stock llegó al mínimo o está por debajo.
+    Cada producto es una tupla: (sku, nombre, stock_actual, stock_minimo).
+    """
+    cursor = conexion.cursor()
+    cursor.execute(
+        "SELECT sku, nombre, stock_actual, stock_minimo FROM productos "
+        "WHERE activo = 1 AND stock_actual <= stock_minimo ORDER BY nombre"
+    )
+    filas = cursor.fetchall()
+    cursor.close()
+    return filas
+
+
+def mostrar_alertas(productos):
+    """Imprime un aviso por cada producto con stock bajo. Sin productos, no imprime nada."""
+    if not productos:
+        return
+    print("\n--- ALERTA: productos con stock bajo ---")
+    for sku, nombre, stock, minimo in productos:
+        print(f"  {nombre} ({sku}): quedan {stock} y el mínimo es {minimo}.")
+
+
+def pantalla_alertas():
+    """Consulta las alertas y las muestra al abrir el menú."""
+    conexion = obtener_conexion()
+    productos = productos_bajo_stock(conexion)
+    conexion.close()
+    mostrar_alertas(productos)
+
+
+# ---------------------------------------------------------------
+# HU-10: Exportar el inventario a CSV
+# CA: columnas código, nombre, categoría, stock, mínimo.
+#     Se abre bien en Excel, con tildes.
+# ---------------------------------------------------------------
+
+def exportar_inventario_csv(conexion, ruta):
+    """
+    Guarda el inventario activo en un archivo CSV.
+    Usa ";" como separador y utf-8-sig: así Excel en español separa bien
+    las columnas y muestra las tildes.
+    Devuelve (True, mensaje) o (False, motivo).
+    """
+    productos = listar_productos(conexion)
+    try:
+        # newline="" evita que se agreguen líneas en blanco entre filas.
+        with open(ruta, "w", newline="", encoding="utf-8-sig") as archivo:
+            escritor = csv.writer(archivo, delimiter=";")
+            escritor.writerow(["Código", "Nombre", "Categoría", "Stock", "Mínimo"])
+            for sku, nombre, categoria, stock, minimo in productos:
+                escritor.writerow([sku, nombre, categoria or "", stock, minimo])
+    except OSError as error:
+        return False, f"No se pudo escribir el archivo: {error}"
+    return True, f"Inventario exportado a '{ruta}' ({len(productos)} productos)."
+
+
 # ============================================================
 # PANTALLAS (hablan con el usuario: input/print)
 # ============================================================
@@ -239,7 +304,7 @@ def mostrar_tabla(productos):
     # "for" recorre la lista. Cada tupla se desarma en cinco variables a la vez.
     for sku, nombre, categoria, stock, minimo in productos:
         # Forma corta de if/else: aviso vale el texto si stock < minimo, si no vale "".
-        aviso = "  <- bajo mínimo" if stock < minimo else ""
+        aviso = "  <- bajo mínimo" if stock <= minimo else ""
         # Imprime la fila. "categoria or 'sin categoría'" usa el texto de reemplazo
         # si la categoría viene vacía o None.
         print(f"{sku:<12}{nombre:<25}{categoria or 'sin categoría':<18}{stock:>7}{minimo:>8}{aviso}")
@@ -336,5 +401,17 @@ def pantalla_baja():
     respuesta = input(f"¿Seguro que quieres dar de baja '{nombre}'? (s/n): ").strip().lower()
     confirmado = respuesta == "s"
     ok, mensaje = dar_de_baja_producto(conexion, sku, confirmado)
+    conexion.close()
+    print(("OK: " if ok else "ERROR: ") + mensaje)
+
+
+def pantalla_exportar_csv():
+    print("\n--- Exportar inventario a CSV ---")
+    ruta = input("Archivo de destino [inventario.csv]: ").strip()
+    if not ruta:
+        ruta = "inventario.csv"
+
+    conexion = obtener_conexion()
+    ok, mensaje = exportar_inventario_csv(conexion, ruta)
     conexion.close()
     print(("OK: " if ok else "ERROR: ") + mensaje)
