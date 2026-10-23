@@ -15,11 +15,12 @@ from conexion import obtener_conexion
 
 # Busca un producto por su código.
 def buscar_por_sku(conexion, sku):
-    """Devuelve (id, nombre, stock_actual) del producto, o None si no existe."""
+    """Devuelve (id, nombre, stock_actual) del producto, o None si no existe o está dado de baja."""
     # Crea el cursor que envía la consulta.
     cursor = conexion.cursor()
     # Consulta parametrizada: %s se rellena con (sku,). La coma hace que sea tupla.
-    cursor.execute("SELECT id, nombre, stock_actual FROM productos WHERE sku = %s", (sku,))
+    # "activo = 1" deja fuera los productos dados de baja (HU-03).
+    cursor.execute("SELECT id, nombre, stock_actual FROM productos WHERE sku = %s AND activo = 1", (sku,))
     # Trae una fila (tupla de 3 valores) o None si no hay.
     fila = cursor.fetchone()
     # Cierra el cursor.

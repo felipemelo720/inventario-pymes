@@ -9,6 +9,7 @@ creada, sin movimientos, con estos productos (entre otros):
 """
 from datetime import datetime
 
+from productos import dar_de_baja_producto
 from stock import entrada_stock, salida_stock
 
 
@@ -87,6 +88,15 @@ def test_entrada_a_producto_que_no_existe(conexion):
     ok, mensaje = entrada_stock(conexion, "SKU-999", 5)
 
     assert ok is False
+
+
+def test_entrada_y_salida_a_producto_dado_de_baja_se_rechazan(conexion):
+    # HU-03: un producto dado de baja ya no acepta movimientos
+    dar_de_baja_producto(conexion, "SKU-001", confirmado=True)
+
+    assert entrada_stock(conexion, "SKU-001", 5)[0] is False
+    assert salida_stock(conexion, "SKU-001", 5)[0] is False
+    assert stock_de(conexion, "SKU-001") == 20
 
 
 # ---------------------------------------------------------------

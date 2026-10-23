@@ -1,6 +1,6 @@
 """
 HU-01: Registrar un producto nuevo.
-HU-02: Ver el listado de productos y  buscar uno.
+HU-02: Editar un producto.
 HU-03: Dar de baja un producto.
 HU-04: Ver el listado de productos y buscar uno.
 """
@@ -79,18 +79,18 @@ def listar_productos(conexion, busqueda=""):
     Devuelve una lista de productos.
     Si 'busqueda' tiene texto, filtra por nombre o por código (SKU).
     Cada producto es una tupla: (sku, nombre, categoria, stock_actual, stock_minimo)
-    Solo muestra productos que est'en activos: Los dados de baja (HU-03) no aparecen.
+    Solo muestra productos que están activos: los dados de baja (HU-03) no aparecen.
     """
     # Crea el cursor para la consulta.
     cursor = conexion.cursor()
     # Arma la parte base de la consulta: qué columnas traer y de qué tabla.
-    # ERROR (PR #1, HU-03): falta filtrar "activo = 1"; los dados de baja siguen apareciendo.
-    # Fallan test_baja_confirmada_deja_de_aparecer_en_el_listado y test_producto_dado_de_baja_no_aparece_en_la_busqueda.
-    consulta = "SELECT sku, nombre, categoria, stock_actual, stock_minimo FROM productos"
+    # "activo = 1" deja fuera los productos dados de baja (HU-03).
+    consulta = "SELECT sku, nombre, categoria, stock_actual, stock_minimo FROM productos WHERE activo = 1"
     # Un texto con contenido cuenta como True; uno vacío como False.
     if busqueda:
         # "+=" agrega texto al final. LIKE busca coincidencias parciales.
-        consulta += " WHERE nombre LIKE %s OR sku LIKE %s"
+        # Los paréntesis hacen que el OR no se salte el filtro de activo.
+        consulta += " AND (nombre LIKE %s OR sku LIKE %s)"
         # "%" en LIKE = "cualquier cosa". "%caf%" encuentra "Café", "Cafetera", etc.
         patron = f"%{busqueda}%"
         # Ejecuta ordenando por nombre. Se pasa el patrón dos veces: un hueco por cada %s.
@@ -107,7 +107,7 @@ def listar_productos(conexion, busqueda=""):
     return filas
 
 # HU-02: Editar producto
-# CA: El cambio se ve en el listado. SIn campos vacios ni SKU repetido
+# CA: El cambio se ve en el listado. Sin campos vacíos ni SKU repetido
 
 def buscar_producto_activo(conexion, sku):
     """
