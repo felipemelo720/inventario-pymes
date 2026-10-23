@@ -84,6 +84,8 @@ def listar_productos(conexion, busqueda=""):
     # Crea el cursor para la consulta.
     cursor = conexion.cursor()
     # Arma la parte base de la consulta: qué columnas traer y de qué tabla.
+    # ERROR (PR #1, HU-03): falta filtrar "activo = 1"; los dados de baja siguen apareciendo.
+    # Fallan test_baja_confirmada_deja_de_aparecer_en_el_listado y test_producto_dado_de_baja_no_aparece_en_la_busqueda.
     consulta = "SELECT sku, nombre, categoria, stock_actual, stock_minimo FROM productos"
     # Un texto con contenido cuenta como True; uno vacío como False.
     if busqueda:
