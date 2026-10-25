@@ -3,7 +3,14 @@ Inventario ligero para Pymes - Sprint 1
 Ejecutar con:  python main.py
 """
 # Trae las pantallas de productos desde productos.py.
-from productos import pantalla_registrar, pantalla_listado, pantalla_editar, pantalla_baja
+from productos import (
+    pantalla_registrar,
+    pantalla_listado,
+    pantalla_editar,
+    pantalla_baja,
+    pantalla_alertas,
+    pantalla_exportar_csv,
+)
 # Trae las dos pantallas de stock desde stock.py.
 from stock import pantalla_entrada, pantalla_salida
 
@@ -11,6 +18,11 @@ from stock import pantalla_entrada, pantalla_salida
 def menu():
     # "while True" = repetir para siempre, hasta que un "break" lo corte.
     while True:
+        # HU-08: al abrir el menú se avisa si algún producto está en el mínimo.
+        try:
+            pantalla_alertas()
+        except Exception as error:
+            print(f"Ocurrió un error con la base de datos: {error}")
         # Imprime el título del menú (con línea en blanco antes).
         print("\nINVENTARIO PYMES")
         # Opción 1.
@@ -25,6 +37,8 @@ def menu():
         print("5. Editar los datos de un producto")
         # Opción 6.
         print("6. Dar de baja producto")
+        # Opción 7.
+        print("7. Exportar inventario a CSV")
         # Opción para salir.
         print("0. Salir")
         # Lee la opción como texto (por eso se compara con "1" y no con 1).
@@ -56,6 +70,10 @@ def menu():
             elif opcion == "6":
                 # Pantalla de baja.
                 pantalla_baja()
+            # Opción 7.
+            elif opcion == "7":
+                # Pantalla de exportación a CSV.
+                pantalla_exportar_csv()
             # Opción 0.
             elif opcion == "0":
                 # Despedida.
